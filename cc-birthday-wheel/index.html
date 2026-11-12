@@ -266,7 +266,7 @@
       letter-spacing: .12em;
     }
     .modal-note { margin: 12px 0 0; color: var(--muted); font-size: 12px; }
-    .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 22px; }
+    .modal-actions { display: grid; grid-template-columns: 1fr; margin-top: 20px; }
     .modal-actions button { padding: 11px 12px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .again { border: 0; background: var(--ink); color: #fff; }
     .accept { border: 1px solid #ddcec7; background: transparent; color: var(--ink); }
@@ -349,10 +349,8 @@
       <h2 id="result-title">嘿，命运发货啦！</h2>
       <div class="prize" id="gift-name">—</div>
       <div class="claim-note"><strong>领取小纸条</strong><span id="gift-note">—</span></div>
-      <p class="modal-note">愿赌服输，这份快乐不许退货 ♡</p>
       <div class="modal-actions">
-        <button class="again" id="again" type="button">不服，再转一次</button>
-        <button class="accept" id="accept" type="button">好嘞，收下！</button>
+        <button class="again" id="accept" type="button">现在去送上祝福</button>
       </div>
     </section>
   </div>
@@ -483,10 +481,6 @@
     }
 
     spinButton.addEventListener("click", spin);
-    document.querySelector("#again").addEventListener("click", () => {
-      closeResult();
-      window.setTimeout(spin, 150);
-    });
     document.querySelector("#accept").addEventListener("click", closeResult);
     document.querySelector("#close").addEventListener("click", closeResult);
     modal.addEventListener("click", (event) => {
