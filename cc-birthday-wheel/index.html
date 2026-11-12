@@ -248,7 +248,24 @@
       font-size: clamp(25px, 7vw, 34px);
       font-weight: 600;
     }
-    .modal-note { margin: 0; color: var(--muted); font-size: 12px; }
+    .claim-note {
+      margin: 12px 0 0;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: #fff3eb;
+      color: #6e554b;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: left;
+    }
+    .claim-note strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--rose);
+      font-size: 10px;
+      letter-spacing: .12em;
+    }
+    .modal-note { margin: 12px 0 0; color: var(--muted); font-size: 12px; }
     .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 22px; }
     .modal-actions button { padding: 11px 12px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     .again { border: 0; background: var(--ink); color: #fff; }
@@ -329,12 +346,13 @@
       <button class="close" id="close" type="button" aria-label="关闭">×</button>
       <div class="celebrate-icon">🎉</div>
       <p class="modal-kicker">LUCKY PICK</p>
-      <h2 id="result-title">抽到啦！</h2>
+      <h2 id="result-title">嘿，命运发货啦！</h2>
       <div class="prize" id="gift-name">—</div>
-      <p class="modal-note">这份心意，就交给你啦 ♡</p>
+      <div class="claim-note"><strong>领取小纸条</strong><span id="gift-note">—</span></div>
+      <p class="modal-note">愿赌服输，这份快乐不许退货 ♡</p>
       <div class="modal-actions">
-        <button class="again" id="again" type="button">再转一次</button>
-        <button class="accept" id="accept" type="button">收下好运</button>
+        <button class="again" id="again" type="button">不服，再转一次</button>
+        <button class="accept" id="accept" type="button">好嘞，收下！</button>
       </div>
     </section>
   </div>
@@ -342,13 +360,13 @@
 
   <script>
     const gifts = [
-      { wheel: "旅游基金", result: "旅游基金 ¥100" },
-      { wheel: "GPT 会员", result: "GPT 会员 ¥138" },
-      { wheel: "新鞋子", result: "新鞋子 ¥150" },
-      { wheel: "新裤子", result: "新裤子 ¥80" },
-      { wheel: "演唱会基金", result: "演唱会基金 ¥100" },
-      { wheel: "5 杯奶茶", result: "5 杯奶茶" },
-      { wheel: "已买衣服", result: "已买衣服 ¥120" }
+      { wheel: "旅游基金", result: "旅游基金 ¥100", note: "下次准备出发时喊我一声，告诉我去哪儿，这笔旅行快乐金随叫随到。" },
+      { wheel: "GPT 会员", result: "GPT 会员 ¥138", note: "一个月会员我来赞助，放心大胆问，别客气到连问题都舍不得发。" },
+      { wheel: "新鞋子", result: "新鞋子 ¥150", note: "最近看中的那双鞋，买！¥150 报销额度已经给你安排上啦。" },
+      { wheel: "新裤子", result: "新裤子 ¥80", note: "最近看中的裤子放心拿下，¥80 给你报销，不许偷偷嫌少哈哈。" },
+      { wheel: "演唱会基金", result: "演唱会基金 ¥100", note: "看到想冲的演唱会就喊我，¥100 尖叫基金已经就位。" },
+      { wheel: "5 杯奶茶", result: "5 杯奶茶", note: "想喝就来找我下单，一共 5 次。快乐可以续杯，次数可不许过期。" },
+      { wheel: "已买衣服", result: "已买衣服 ¥120", note: "这件已经提前买好啦，价值 ¥120——礼物先到，惊喜现在补上。" }
     ];
     const colors = ["#ef8b73", "#efbb4f", "#91b5a4", "#9b8bc6", "#73a6c6", "#cf7798", "#d890bb"];
     const confettiColors = ["#ef8b73", "#efbb4f", "#7caec8", "#d76780", "#8cb8a2", "#9b8bc6"];
@@ -357,6 +375,7 @@
     const spinButton = document.querySelector("#spin");
     const modal = document.querySelector("#result-modal");
     const giftName = document.querySelector("#gift-name");
+    const giftNote = document.querySelector("#gift-note");
     const confetti = document.querySelector("#confetti");
     const labelNodes = [];
     let rotation = 0;
@@ -428,6 +447,7 @@
 
     function openResult(gift) {
       giftName.textContent = gift.result;
+      giftNote.textContent = gift.note;
       modal.classList.add("show");
       modal.setAttribute("aria-hidden", "false");
       celebrate();
